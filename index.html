@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SmartWait | Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app-container">
+
+  <header class="header">
+    <h1 class="app-title">SmartWait</h1>
+    <p class="tagline">USER LOGIN</p>
+  </header>
+
+  <div class="restaurants-grid">
+
+    <div class="restaurant-card">
+
+      <h2 class="restaurant-name" style="text-align:center;">Welcome Back</h2>
+      <p class="card-description" style="text-align:center;">
+        Login to continue to SmartWait
+      </p>
+
+      <form id="loginForm">
+
+        <div class="card-details">
+
+          <div class="detail-item">
+            📧
+            <input type="email" id="email" placeholder="Email address" required class="login-input">
+          </div>
+
+          <div class="detail-item">
+            🔒
+            <input type="password" id="password" placeholder="Password" required class="login-input">
+          </div>
+
+        </div>
+
+        <div style="margin-top:2rem; text-align:center;">
+          <button type="submit" class="chip active">Login</button>
+        </div>
+
+      </form>
+
+      <!-- Extra Options -->
+      <div style="text-align:center; margin-top:1.5rem;">
+
+        <p class="card-description">
+          <a href="register.html" style="color:#d4af37; text-decoration:none;">Register</a>
+        </p>
+
+        <p class="card-description" style="margin-top:0.5rem;">
+          <a href="forgot-password.html" style="color:#d4af37; text-decoration:none;">
+            Forgot Password?
+          </a>
+        </p>
+
+        <p class="card-description" style="text-align:center; margin-top:1rem;">
+            Restaurant staff?  
+            <a href="staff-login.html" style="color:#d4af37; text-decoration:none;">
+              Login here
+            </a>
+          </p>          
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+document.getElementById("loginForm").addEventListener("submit", function(e){
+  e.preventDefault();
+
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  if(email && password){
+    alert("Login successful (demo)");
+    window.location.href = "home.html"; // restaurant list page
+  } else {
+    alert("Please enter valid credentials.");
+  }
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SmartWait | Restaurant Details</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app-container">
+
+  <!-- Back Button -->
+  <button class="back-btn" onclick="window.location.href='home.html'">← Back to Restaurants</button>
+
+  <header class="header">
+    <h1 class="app-title">SmartWait</h1>
+    <p class="tagline">RESTAURANT DETAILS</p>
+  </header>
+
+  <div class="restaurants-grid">
+
+    <div class="restaurant-card">
+
+      <div class="card-header">
+        <h2 class="restaurant-name" id="restaurantName"></h2>
+        <p class="cuisine-type" id="restaurantCuisine"></p>
+      </div>
+
+      <p class="card-description" id="restaurantDescription"></p>
+
+      <!-- Wait Badge -->
+      <div class="wait-badge" id="waitBadge">
+        <span class="wait-time" id="waitTime"></span>
+        <span class="wait-label">MIN WAIT</span>
+      </div>
+
+      <div class="card-details">
+        <div class="detail-item">📍 <span id="distance"></span></div>
+        <div class="detail-item">⭐ Rating: <span id="rating"></span></div>
+        <div class="detail-item">🤖 Recommendation Score: <span id="score"></span>%</div>
+
+        <div class="detail-item">
+          👥 Crowd Level
+          <div class="crowd-indicator" id="crowdIndicator">
+            <div class="crowd-bar"></div>
+            <div class="crowd-bar"></div>
+            <div class="crowd-bar"></div>
+            <div class="crowd-bar"></div>
+            <div class="crowd-bar"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Map Placeholder -->
+      <div class="map-placeholder">
+        📍 Map view will be displayed here
+      </div>
+
+      <!-- Menu -->
+      <h3 class="menu-title">Sample Menu</h3>
+      <div class="card-details" id="menuList"></div>
+
+      <!-- Alert Button -->
+      <div style="margin-top:2rem; text-align:center;">
+        <button class="chip active" id="alertBtn">Turn on Table Availability Alert</button>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+
+const restaurant = {
+  name: params.get("name"),
+  cuisine: params.get("cuisine"),
+  wait: parseInt(params.get("wait")),
+  distance: params.get("distance") + " miles away",
+  rating: params.get("rating"),
+  crowd: parseInt(params.get("crowd")),
+  score: params.get("score"),
+  description: "A popular London dining destination known for its authentic flavours, vibrant ambience, and premium dining experience.",
+  menu: [
+    "Signature Chef Special",
+    "Classic House Platter",
+    "Seasonal Gourmet Salad",
+    "Traditional Dessert Selection"
+  ]
+};
+
+function getWaitClass(wait){
+  if(wait <= 15) return "short";
+  if(wait <= 30) return "medium";
+  return "long";
+}
+
+document.getElementById("restaurantName").textContent = restaurant.name;
+document.getElementById("restaurantCuisine").textContent = restaurant.cuisine.toUpperCase();
+document.getElementById("waitTime").textContent = restaurant.wait;
+document.getElementById("distance").textContent = restaurant.distance;
+document.getElementById("rating").textContent = restaurant.rating;
+document.getElementById("score").textContent = restaurant.score;
+document.getElementById("restaurantDescription").textContent = restaurant.description;
+
+const badge = document.getElementById("waitBadge");
+badge.className = "wait-badge " + getWaitClass(restaurant.wait);
+
+const bars = document.querySelectorAll("#crowdIndicator .crowd-bar");
+bars.forEach((b,i)=>{
+  if(i < restaurant.crowd){
+    b.classList.add("active");
+  }
+});
+
+const menuDiv = document.getElementById("menuList");
+menuDiv.innerHTML = restaurant.menu.map(item =>
+  `<div class="detail-item">🍽 ${item}</div>`
+).join("");
+
+document.getElementById("alertBtn").addEventListener("click", ()=>{
+  alert(`You will be notified when a table becomes available at ${restaurant.name}.`);
+});
+</script>
+
+</body>
+</html>

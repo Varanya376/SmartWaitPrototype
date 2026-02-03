@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SmartWait | Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app-container">
+
+  <!-- Back Button -->
+  <button class="back-btn" onclick="window.location.href='index.html'">← Back to Home</button>
+
+  <header class="header">
+    <h1 class="app-title">SmartWait</h1>
+    <p class="tagline">USER LOGIN</p>
+  </header>
+
+  <div class="restaurants-grid">
+
+    <div class="restaurant-card">
+
+      <h2 class="restaurant-name" style="text-align:center;">Welcome Back</h2>
+      <p class="card-description" style="text-align:center;">
+        Login to access personalised recommendations and alerts.
+      </p>
+
+      <form id="loginForm">
+
+        <div class="card-details">
+
+          <div class="detail-item">
+            📧
+            <input type="email" id="email" placeholder="Email address" required class="login-input">
+          </div>
+
+          <div class="detail-item">
+            🔒
+            <input type="password" id="password" placeholder="Password" required class="login-input">
+          </div>
+
+        </div>
+
+        <div style="margin-top:2rem; text-align:center;">
+          <button type="submit" class="chip active">Login</button>
+        </div>
+
+      </form>
+
+      <p class="card-description" style="text-align:center; margin-top:1rem;">
+        Forgot password? | New user? Register here
+      </p>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+document.getElementById("loginForm").addEventListener("submit", function(e){
+  e.preventDefault();
+
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  if(email && password){
+    alert("Login successful (demo). Redirecting to dashboard...");
+    window.location.href = "index.html";
+  } else {
+    alert("Please enter valid credentials.");
+  }
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SmartWait | Staff Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app-container">
+
+  <!-- Back Button -->
+  <button class="back-btn" onclick="window.location.href='staff-login.html'">← Logout</button>
+
+  <header class="header">
+    <h1 class="app-title">SmartWait</h1>
+    <p class="tagline">STAFF DASHBOARD</p>
+  </header>
+
+  <div class="restaurants-grid">
+
+    <div class="restaurant-card">
+
+      <h2 class="restaurant-name" style="text-align:center;">Table Management Panel</h2>
+      <p class="card-description" style="text-align:center;">
+        Update table availability to refresh AI wait-time predictions.
+      </p>
+
+      <!-- Table List -->
+      <div class="card-details" id="tableList"></div>
+
+      <!-- Predicted Wait -->
+      <div style="margin-top:2rem; text-align:center;">
+        <div class="wait-badge" id="predictedWait">
+          <span class="wait-time" id="waitTime">20</span>
+          <span class="wait-label">MIN WAIT</span>
+        </div>
+        <p class="card-description">Predicted wait time updates automatically.</p>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+const tables = [
+  { id: 1, status: "Free" },
+  { id: 2, status: "Occupied" },
+  { id: 3, status: "Reserved" },
+  { id: 4, status: "Free" },
+  { id: 5, status: "Occupied" }
+];
+
+function renderTables(){
+  const container = document.getElementById("tableList");
+
+  container.innerHTML = tables.map((t,index)=>`
+    <div class="detail-item">
+      🪑 Table ${t.id}
+      <select onchange="updateStatus(${index}, this.value)">
+        <option ${t.status==="Free"?"selected":""}>Free</option>
+        <option ${t.status==="Occupied"?"selected":""}>Occupied</option>
+        <option ${t.status==="Reserved"?"selected":""}>Reserved</option>
+      </select>
+    </div>
+  `).join("");
+}
+
+function updateStatus(index,value){
+  tables[index].status = value;
+  updatePrediction();
+}
+
+function updatePrediction(){
+  const occupied = tables.filter(t=>t.status==="Occupied").length;
+  const wait = 5 + occupied * 5;
+
+  document.getElementById("waitTime").textContent = wait;
+}
+
+renderTables();
+updatePrediction();
+</script>
+
+</body>
+</html>

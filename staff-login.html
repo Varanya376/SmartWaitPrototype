@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SmartWait | Staff Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app-container">
+
+  <!-- Back Button -->
+  <button class="back-btn" onclick="window.location.href='index.html'">← Back to User Login</button>
+
+  <header class="header">
+    <h1 class="app-title">SmartWait</h1>
+    <p class="tagline">RESTAURANT STAFF LOGIN</p>
+  </header>
+
+  <div class="restaurants-grid">
+
+    <div class="restaurant-card">
+
+      <h2 class="restaurant-name" style="text-align:center;">Staff Access Portal</h2>
+      <p class="card-description" style="text-align:center;">
+        Login to manage table availability and restaurant status.
+      </p>
+
+      <form id="staffLoginForm">
+
+        <div class="card-details">
+
+          <div class="detail-item">
+            🏷
+            <input type="text" id="staffId" placeholder="Staff ID" required class="login-input">
+          </div>
+
+          <div class="detail-item">
+            🔒
+            <input type="password" id="staffPassword" placeholder="Password" required class="login-input">
+          </div>
+
+        </div>
+
+        <div style="margin-top:2rem; text-align:center;">
+          <button type="submit" class="chip active">Login</button>
+        </div>
+
+      </form>
+
+      <p class="card-description" style="text-align:center; margin-top:1.5rem;">
+        Authorized restaurant staff only.
+      </p>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+document.getElementById("staffLoginForm").addEventListener("submit", function(e){
+  e.preventDefault();
+
+  const id = document.getElementById("staffId").value;
+  const password = document.getElementById("staffPassword").value;
+
+  if(id && password){
+    alert("Staff login successful (demo).");
+    window.location.href = "staff-dashboard.html";
+  } else {
+    alert("Please enter valid staff credentials.");
+  }
+});
+</script>
+
+</body>
+</html>

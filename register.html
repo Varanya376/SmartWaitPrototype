@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SmartWait | Register</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app-container">
+
+  <!-- Back Button -->
+  <button class="back-btn" onclick="window.location.href='index.html'">← Back to Login</button>
+
+  <header class="header">
+    <h1 class="app-title">SmartWait</h1>
+    <p class="tagline">USER REGISTRATION</p>
+  </header>
+
+  <div class="restaurants-grid">
+
+    <div class="restaurant-card">
+
+      <h2 class="restaurant-name" style="text-align:center;">Create Your Account</h2>
+      <p class="card-description" style="text-align:center;">
+        Register to start exploring SmartWait
+      </p>
+
+      <form id="registerForm">
+
+        <div class="card-details">
+
+          <div class="detail-item">
+            👤
+            <input type="text" id="name" placeholder="Full Name" required class="login-input">
+          </div>
+
+          <div class="detail-item">
+            📧
+            <input type="email" id="email" placeholder="Email Address" required class="login-input">
+          </div>
+
+          <div class="detail-item">
+            🔒
+            <input type="password" id="password" placeholder="Password" required class="login-input">
+          </div>
+
+          <div class="detail-item">
+            🔒
+            <input type="password" id="confirmPassword" placeholder="Confirm Password" required class="login-input">
+          </div>
+
+        </div>
+
+        <div style="margin-top:2rem; text-align:center;">
+          <button type="submit" class="chip active">Register</button>
+        </div>
+
+      </form>
+
+      <p class="card-description" style="text-align:center; margin-top:1.5rem;">
+        Already have an account?  
+        <a href="index.html" style="color:#d4af37; text-decoration:none;">Login here</a>
+      </p>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+document.getElementById("registerForm").addEventListener("submit", function(e){
+  e.preventDefault();
+
+  const password = document.getElementById("password").value;
+  const confirm = document.getElementById("confirmPassword").value;
+
+  if(password !== confirm){
+    alert("Passwords do not match.");
+    return;
+  }
+
+  alert("Registration successful (demo). Redirecting to login...");
+  window.location.href = "index.html";
+});
+</script>
+
+</body>
+</html>

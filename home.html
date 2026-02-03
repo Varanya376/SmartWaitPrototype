@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SmartWait | Restaurants</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app-container">
+
+  <header class="header" style="display:flex; justify-content:space-between; align-items:center;">
+    <div>
+      <h1 class="app-title">SmartWait</h1>
+      <p class="tagline">RECOMMENDED RESTAURANTS NEAR YOU</p>
+    </div>
+
+    <!-- Kebab Menu -->
+    <div style="position:relative;">
+      <button id="kebabBtn" style="background:none; border:none; font-size:1.5rem; color:#d4af37; cursor:pointer;">⋮</button>
+      <div id="filterMenu" style="display:none; position:absolute; right:0; top:2rem; background:#f5f1e8; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,0.3); overflow:hidden;">
+        <div class="detail-item" onclick="applySort('wait')">⏱ Shortest Wait</div>
+        <div class="detail-item" onclick="applySort('rating')">⭐ Highest Rating</div>
+        <div class="detail-item" onclick="applySort('distance')">📍 Nearest</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Search -->
+  <div class="search-container">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="searchInput" class="search-input" placeholder="Search restaurants...">
+  </div>
+
+  <!-- Filters -->
+  <div class="filter-chips">
+    <button class="chip active" data-filter="all">All</button>
+    <button class="chip" data-filter="italian">Italian</button>
+    <button class="chip" data-filter="asian">Asian</button>
+    <button class="chip" data-filter="american">American</button>
+    <button class="chip" data-filter="mexican">Mexican</button>
+  </div>
+
+  <main class="restaurants-grid" id="restaurantsGrid"></main>
+
+</div>
+
+<script>
+let restaurants = [
+  { name:"Dishoom Covent Garden", cuisine:"Indian", category:"asian", wait:20, distance:0.4, crowd:3, rating:4.6, score:88 },
+  { name:"Taco Fiesta", cuisine:"Mexican", category:"mexican", wait:35, distance:0.8, crowd:4, rating:4.4, score:72 },
+  { name:"La Bella Italia", cuisine:"Italian", category:"italian", wait:15, distance:0.3, crowd:2, rating:4.5, score:90 },
+  { name:"Franco Manca Soho", cuisine:"Italian", category:"italian", wait:18, distance:0.5, crowd:3, rating:4.3, score:84 },
+  { name:"Five Guys Leicester Sq", cuisine:"American", category:"american", wait:10, distance:0.2, crowd:1, rating:4.2, score:92 },
+  { name:"Shake Shack London", cuisine:"American", category:"american", wait:25, distance:0.6, crowd:3, rating:4.4, score:80 },
+  { name:"Sushi Samba", cuisine:"Asian", category:"asian", wait:30, distance:0.7, crowd:4, rating:4.7, score:85 },
+  { name:"Wagamama Oxford Circus", cuisine:"Asian", category:"asian", wait:12, distance:0.4, crowd:2, rating:4.3, score:89 },
+  { name:"El Pastor Soho", cuisine:"Mexican", category:"mexican", wait:22, distance:0.5, crowd:3, rating:4.5, score:83 }
+];
+
+let currentFilter = "all";
+let searchQuery = "";
+
+function openDetails(r){
+  const url = `restaurant-details.html?name=${encodeURIComponent(r.name)}
+  &cuisine=${encodeURIComponent(r.cuisine)}
+  &wait=${r.wait}
+  &distance=${r.distance}
+  &rating=${r.rating}
+  &crowd=${r.crowd}
+  &score=${r.score}`;
+  window.location.href = url;
+}
+
+function renderRestaurants(){
+  const grid = document.getElementById("restaurantsGrid");
+
+  const filtered = restaurants.filter(r=>{
+    const f = currentFilter==="all" || r.category===currentFilter;
+    const s = r.name.toLowerCase().includes(searchQuery) || r.cuisine.toLowerCase().includes(searchQuery);
+    return f && s;
+  });
+
+  grid.innerHTML = filtered.map(r=>`
+    <div class="restaurant-card" onclick='openDetails(${JSON.stringify(r)})'>
+      <div class="card-header">
+        <h2 class="restaurant-name">${r.name}</h2>
+        <p class="cuisine-type">${r.cuisine}</p>
+      </div>
+
+      <div class="wait-badge">
+        <span class="wait-time">${r.wait}</span>
+        <span class="wait-label">MIN WAIT</span>
+      </div>
+
+      <div class="card-details">
+        <div class="detail-item">📍 ${r.distance} miles away</div>
+        <div class="detail-item">⭐ Rating: ${r.rating}</div>
+        <div class="detail-item">🤖 Recommendation Score: <strong>${r.score}%</strong></div>
+      </div>
+    </div>
+  `).join("");
+}
+
+/* Cuisine filters */
+document.querySelectorAll(".chip").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    document.querySelectorAll(".chip").forEach(c=>c.classList.remove("active"));
+    btn.classList.add("active");
+    currentFilter = btn.dataset.filter;
+    renderRestaurants();
+  });
+});
+
+/* Search */
+document.getElementById("searchInput").addEventListener("input", e=>{
+  searchQuery = e.target.value.toLowerCase();
+  renderRestaurants();
+});
+
+/* Kebab Menu Toggle */
+const kebabBtn = document.getElementById("kebabBtn");
+const filterMenu = document.getElementById("filterMenu");
+
+kebabBtn.addEventListener("click", ()=>{
+  filterMenu.style.display = filterMenu.style.display === "block" ? "none" : "block";
+});
+
+/* Sorting */
+function applySort(type){
+  if(type === "wait"){
+    restaurants.sort((a,b)=>a.wait - b.wait);
+  }
+  if(type === "rating"){
+    restaurants.sort((a,b)=>b.rating - a.rating);
+  }
+  if(type === "distance"){
+    restaurants.sort((a,b)=>a.distance - b.distance);
+  }
+  filterMenu.style.display = "none";
+  renderRestaurants();
+}
+
+renderRestaurants();
+</script>
+
+</body>
+</html>
