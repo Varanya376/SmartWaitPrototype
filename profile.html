@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SmartWait | Profile</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="profile-page">
+
+<div class="app-container">
+
+  <button class="back-btn" onclick="window.location.href='home.html'">← Back to Restaurants</button>
+
+  <header class="header">
+    <h1 class="app-title">SmartWait</h1>
+    <p class="tagline">YOUR PROFILE & PREFERENCES</p>
+  </header>
+
+  <div class="restaurants-grid">
+    <div class="restaurant-card">
+
+      <!-- User Info -->
+      <h2>Your Details</h2>
+      <div class="card-details">
+        <div class="detail-item">👤 
+          <input type="text" id="nameInput" class="login-input" placeholder="Your name">
+        </div>
+        <div class="detail-item">📧 
+          <input type="email" id="emailInput" class="login-input" placeholder="Your email">
+        </div>
+      </div>
+
+      <!-- Cuisine Preferences -->
+      <h2>Cuisine Preferences</h2>
+      <div class="card-details">
+        <label class="detail-item"><input type="checkbox" value="italian"> Italian</label>
+        <label class="detail-item"><input type="checkbox" value="asian"> Asian</label>
+        <label class="detail-item"><input type="checkbox" value="american"> American</label>
+        <label class="detail-item"><input type="checkbox" value="mexican"> Mexican</label>
+        <label class="detail-item"><input type="checkbox" value="thai"> Thai</label>
+      </div>
+
+      <!-- Tolerance Settings -->
+      <h2>Your Tolerance</h2>
+      <div class="card-details">
+        <div class="detail-item">
+          ⏱ Max Wait Time:
+          <input type="range" min="5" max="60" value="20" id="waitRange">
+          <span id="waitValue">20 min</span>
+        </div>
+        <div class="detail-item">
+          📍 Max Distance:
+          <input type="range" min="0.1" max="5" step="0.1" value="1" id="distanceRange">
+          <span id="distanceValue">1 mile</span>
+        </div>
+      </div>
+
+      <!-- Saved Restaurants -->
+      <h2>Saved Restaurants</h2>
+      <div class="card-details">
+        <div class="detail-item">⭐ Dishoom Covent Garden</div>
+        <div class="detail-item">⭐ Franco Manca Soho</div>
+        <div class="detail-item">⭐ Pizza Pilgrims</div>
+      </div>
+
+      <!-- Save Button -->
+      <div style="margin-top:2rem; text-align:center;">
+        <button class="chip active" id="saveProfileBtn">Save Preferences</button>
+        <p id="saveMsg" style="margin-top:1rem; display:none; color:#6b5d4f;"></p>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+    const waitRange = document.getElementById("waitRange");
+    const waitValue = document.getElementById("waitValue");
+    const distanceRange = document.getElementById("distanceRange");
+    const distanceValue = document.getElementById("distanceValue");
+    const saveBtn = document.getElementById("saveProfileBtn");
+    const saveMsg = document.getElementById("saveMsg");
+    
+    const cuisineCheckboxes = document.querySelectorAll("input[type='checkbox']");
+    
+    // Load saved preferences
+    const saved = JSON.parse(localStorage.getItem("userPreferences"));
+    if(saved){
+      waitRange.value = saved.maxWait;
+      distanceRange.value = saved.maxDistance;
+      waitValue.textContent = saved.maxWait + " min";
+      distanceValue.textContent = saved.maxDistance + " mile";
+    
+      cuisineCheckboxes.forEach(cb=>{
+        if(saved.cuisines.includes(cb.parentElement.textContent.trim())){
+          cb.checked = true;
+        }
+      });
+    }
+    
+    waitRange.addEventListener("input", () => {
+      waitValue.textContent = waitRange.value + " min";
+    });
+    
+    distanceRange.addEventListener("input", () => {
+      distanceValue.textContent = distanceRange.value + " mile";
+    });
+    
+    saveBtn.addEventListener("click", () => {
+      const selectedCuisines = [];
+      cuisineCheckboxes.forEach(cb=>{
+        if(cb.checked){
+          selectedCuisines.push(cb.parentElement.textContent.trim());
+        }
+      });
+    
+      const prefs = {
+        cuisines: selectedCuisines,
+        maxWait: parseInt(waitRange.value),
+        maxDistance: parseFloat(distanceRange.value)
+      };
+    
+      localStorage.setItem("userPreferences", JSON.stringify(prefs));
+    
+      saveMsg.style.display = "block";
+      saveMsg.textContent = "✔ Preferences saved successfully.";
+    });
+    </script>
+    
+
+</body>
+</html>

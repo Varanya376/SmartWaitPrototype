@@ -1,286 +1,852 @@
+/* RESET */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  html, body {
-    height: 100%;
-    font-family: 'Montserrat', sans-serif;
-    background: linear-gradient(135deg, #1a1a1a 0%, #2d2424 50%, #1a1a1a 100%);
-    color: #f5f5dc;
-  }
-  
-  /* Container */
-  .app-container {
-    padding: 3rem 2rem;
-  }
-  
-  /* Header */
-  .header {
-    text-align: center;
-    margin-bottom: 3rem;
-  }
-  
-  .app-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 4rem;
-    font-weight: 700;
-    background: linear-gradient(135deg, #d4af37, #ffd700, #d4af37);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  
-  .tagline {
-    color: #c9b896;
-    letter-spacing: 0.15em;
-    font-size: 0.9rem;
-    margin-top: 0.5rem;
-  }
-  
-  /* Search */
-  .search-container {
-    max-width: 700px;
-    margin: 0 auto 2.5rem;
-    position: relative;
-  }
-  
-  .search-input {
-    width: 100%;
-    padding: 1.2rem 1.7rem 1.2rem 3.5rem;
-    border-radius: 50px;
-    background: rgba(26,26,26,0.8);
-    border: 2px solid rgba(212,175,55,0.3);
-    color: #f5f5dc;
-    font-size: 1rem;
-  }
-  
-  .search-input:focus {
-    outline: none;
-    border-color: #d4af37;
-  }
-  
-  .search-icon {
-    position: absolute;
-    left: 1.5rem;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-  
-  /* Filters */
-  .filter-chips {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    flex-wrap: wrap;
-    margin-bottom: 3rem;
-  }
-  
-  .chip {
-    padding: 0.7rem 2rem;
-    border-radius: 30px;
-    background: rgba(26,26,26,0.6);
-    border: 1px solid rgba(212,175,55,0.3);
-    color: #c9b896;
-    cursor: pointer;
-  }
-  
-  .chip.active {
-    background: linear-gradient(135deg, #d4af37, #b8860b);
-    color: #1a1a1a;
-    font-weight: 600;
-  }
-  
-  /* Restaurant List */
-  .restaurants-grid {
-    max-width: 700px;
-    margin: 0 auto;
-    padding-left: 3rem;
-    position: relative;
-  }
-  
-  .restaurants-grid::before {
-    content: "";
-    position: absolute;
-    left: 1rem;
-    top: 0;
-    bottom: 0;
-    width: 2px;
-    background: linear-gradient(180deg, transparent, #d4af37, transparent);
-  }
-  
-  /* Card */
-  .restaurant-card {
-    background: linear-gradient(135deg, #f5f1e8, #e8dcc8);
-    border-radius: 16px;
-    padding: 1.25rem;
-    margin-bottom: 1.5rem;
-    border: 1px solid rgba(212,175,55,0.3);
-    box-shadow: 0 6px 24px rgba(0,0,0,0.4);
-    transition: 0.3s;
-    color: #1a1a1a;
-  }
-  
-  .restaurant-card:hover {
-    transform: translateX(8px);
-    border-color: #d4af37;
-  }
-  
-  .card-header {
-    margin-bottom: 1rem;
-  }
-  
-  .restaurant-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.6rem;
-    color: #1a1a1a;
-  }
-  
-  .cuisine-type {
-    font-size: 0.75rem;
-    letter-spacing: 0.1em;
-    color: #6b5d4f;
-  }
-  
-  /* Description */
-  .card-description {
-    color: #1a1a1a;
-    line-height: 1.6;
-    margin-bottom: 1rem;
-  }
-  
-  /* Wait Badge */
-  .wait-badge {
-    width: fit-content;
-    padding: 0.6rem 1.4rem;
-    border-radius: 10px;
-    margin: 0.8rem 0;
-    text-align: center;
-    font-weight: 700;
-    background: linear-gradient(135deg, #d4af37, #b8860b);
-    color: #1a1a1a;
-  }
-  
-  .wait-time {
-    font-size: 1.4rem;
-    display: block;
-  }
-  
-  .wait-label {
-    font-size: 0.7rem;
-    letter-spacing: 0.05em;
-  }
-  
-  /* Details */
-  .card-details {
-    border-top: 1px solid rgba(212,175,55,0.3);
-    padding-top: 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
-  }
-  
-  .detail-item {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    font-size: 0.85rem;
-    color: #1a1a1a;
-  }
-  
-  /* Crowd */
-  .crowd-indicator {
-    display: flex;
-    gap: 0.3rem;
-    margin-left: auto;
-  }
-  
-  .crowd-bar {
-    width: 5px;
-    height: 18px;
-    background: rgba(107,93,79,0.2);
-    border-radius: 3px;
-  }
-  
-  .crowd-bar.active {
-    background: linear-gradient(135deg, #d4af37, #b8860b);
-  }
-  
-  /* Mobile */
-  @media (max-width: 768px) {
-    .app-title {
-      font-size: 2.5rem;
-    }
-  
-    .restaurants-grid {
-      padding-left: 2rem;
-    }
-  }
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-/* Back Button */
+/* BASE */
+html, body {
+  height: 100%;
+  font-family: 'Montserrat', sans-serif;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2424 50%, #1a1a1a 100%);
+  color: #f5f5dc;
+}
+
+/* CONTAINER */
+.app-container {
+  padding: 3rem 2rem;
+}
+
+/* HEADER */
+.header {
+  position: relative;
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.app-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #d4af37, #ffd700, #d4af37);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.tagline {
+  color: #c9b896;
+  letter-spacing: 0.15em;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+/* BACK BUTTON */
 .back-btn {
-    background: none;
-    border: none;
-    color: #d4af37;
-    font-size: 0.9rem;
-    cursor: pointer;
-    margin-bottom: 1.5rem;
-    font-weight: 600;
-  }
-  
-  .back-btn:hover {
-    text-decoration: underline;
-  }
-  
-  /* Map Placeholder */
-  .map-placeholder {
-    margin-top: 1.5rem;
-    height: 180px;
-    border-radius: 12px;
-    background: rgba(212,175,55,0.1);
-    border: 1px dashed rgba(212,175,55,0.4);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #6b5d4f;
-    font-size: 0.9rem;
-  }
-  
-  /* Menu Title */
-  .menu-title {
-    margin-top: 2rem;
-    font-family: 'Cormorant Garamond', serif;
-    color: #6b5d4f;
+  background: rgba(26,26,26,0.7);
+  border: 1px solid rgba(212,175,55,0.4);
+  color: #d4af37;
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  cursor: pointer;
+  margin-bottom: 1.5rem;
+  font-size: 0.8rem;
+  transition: all 0.25s ease;
+}
+
+.back-btn:hover {
+  background: rgba(212,175,55,0.15);
+}
+
+/* SEARCH */
+.search-container {
+  max-width: 700px;
+  margin: 0 auto 2.5rem;
+  position: relative;
+}
+
+.search-input {
+  width: 100%;
+  padding: 1.2rem 1.7rem 1.2rem 3.5rem;
+  border-radius: 50px;
+  background: rgba(26,26,26,0.8);
+  border: 2px solid rgba(212,175,55,0.3);
+  color: #f5f5dc;
+}
+
+.search-icon {
+  position: absolute;
+  left: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* FILTER CHIPS */
+.filter-chips {
+  display: flex;
+  justify-content: center;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  margin-bottom: 3rem;
+}
+
+.chip {
+  padding: 0.55rem 1.6rem;
+  border-radius: 999px;
+  background: transparent;
+  border: 1px solid rgba(212,175,55,0.35);
+  color: #d6c49c;
+  cursor: pointer;
+}
+
+.chip.active {
+  background: #d4af37;
+  color: #1a1a1a;
+  font-weight: 600;
+}
+
+/* SHOW MAP BUTTON (ORIGINAL STYLE) */
+.map-toggle-btn {
+  display: block;
+  margin: 0 auto 1.5rem;
+  background: linear-gradient(135deg, #d4af37, #b8860b);
+  border: none;
+  padding: 0.7rem 2rem;
+  border-radius: 30px;
+  font-weight: 600;
+  color: #1a1a1a;
+  cursor: pointer;
+}
+
+/* MAP */
+.map-container {
+  max-width: 700px;
+  margin: 0 auto 2rem;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px dashed rgba(212,175,55,0.4);
+}
+
+/* LIST */
+.restaurants-grid {
+  max-width: 700px;
+  margin: 0 auto;
+  padding-left: 3rem;
+  position: relative;
+}
+
+.restaurants-grid::before {
+  content: "";
+  position: absolute;
+  left: 1rem;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, transparent, #d4af37, transparent);
+}
+
+/* CARD */
+.restaurant-card {
+  background: linear-gradient(135deg, #f5f1e8, #e8dcc8);
+  border-radius: 16px;
+  padding: 1.25rem;
+  margin-bottom: 2rem; /* SPACING FIX */
+  border: 1px solid rgba(212,175,55,0.3);
+  box-shadow: 0 6px 24px rgba(0,0,0,0.4);
+  color: #1a1a1a;
+}
+
+/* WAIT BADGE (NOT STRETCHED) */
+.wait-badge {
+  width: fit-content;
+  padding: 0.5rem 1.2rem;
+  border-radius: 10px;
+  margin: 0.8rem 0;
+  font-weight: 700;
+  background: linear-gradient(135deg, #d4af37, #b8860b);
+  color: #1a1a1a;
+}
+
+/* DETAILS */
+.card-details {
+  border-top: 1px solid rgba(212,175,55,0.3);
+  padding-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+/* CROWD LEVEL BARS (RESTORED) */
+.crowd-indicator {
+  display: flex;
+  gap: 4px;
+  margin-left: 0.5rem;
+}
+
+.crowd-bar {
+  width: 14px;
+  height: 8px;
+  background: #ddd;
+  border-radius: 3px;
+}
+
+.crowd-bar.active {
+  background: #d4af37;
+}
+
+/* BUTTON ROW (MENU + ALERT CENTERED) */
+.button-row {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+/* MENU BUTTON */
+.menu-btn {
+  padding: 0.6rem 1.5rem;
+  background: linear-gradient(135deg, #d4af37, #b8860b);
+  color: #1a1a1a;
+  border-radius: 20px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+/* ===== PROFILE PAGE ===== */
+
+.profile-container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding-left: 3rem;
+  position: relative;
+}
+
+.profile-container::before {
+  content: "";
+  position: absolute;
+  left: 1rem;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, transparent, #d4af37, transparent);
+}
+
+.profile-card {
+  background: linear-gradient(135deg, #f5f1e8, #e8dcc8);
+  border-radius: 16px;
+  padding: 1.5rem;
+  border: 1px solid rgba(212,175,55,0.3);
+  box-shadow: 0 6px 24px rgba(0,0,0,0.4);
+  color: #1a1a1a;
+}
+
+/* Section titles */
+.profile-card h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem;
+  margin-bottom: 0.5rem;
+  color: #1a1a1a;
+}
+
+.profile-card h3 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-family: 'Cormorant Garamond', serif;
+  color: #6b5d4f;
+  font-size: 1.3rem;
+  border-top: 1px solid rgba(212,175,55,0.3);
+  padding-top: 1rem;
+}
+
+/* Rows */
+.profile-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.6rem;
+  font-size: 0.9rem;
+}
+
+/* Inputs */
+.profile-input {
+  flex: 1;
+  padding: 0.6rem;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 0.9rem;
+  color: #1a1a1a;
+  font-family: 'Montserrat', sans-serif;
+  border-bottom: 1px solid rgba(212,175,55,0.4);
+}
+
+.profile-input::placeholder {
+  color: #6b5d4f;
+}
+
+/* Checkboxes */
+.profile-row input[type="checkbox"] {
+  accent-color: #d4af37;
+  transform: scale(1.1);
+}
+
+/* Range sliders */
+.profile-row input[type="range"] {
+  flex: 1;
+  margin: 0 0.5rem;
+  accent-color: #d4af37;
+}
+
+/* Saved restaurants */
+.saved-list {
+  margin-top: 0.5rem;
+}
+
+.saved-list div {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.4rem;
+  font-size: 0.9rem;
+}
+
+/* Save button */
+.profile-save-btn {
+  display: block;
+  margin: 2rem auto 0;
+  padding: 0.7rem 2rem;
+  border-radius: 30px;
+  background: linear-gradient(135deg, #d4af37, #b8860b);
+  color: #1a1a1a;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+}
+
+.profile-save-btn:hover {
+  opacity: 0.9;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .profile-container {
+    padding-left: 2rem;
   }
 
-/* Login Inputs */
-.login-input {
+  .profile-card {
+    padding: 1.2rem;
+  }
+
+  .profile-row {
+    flex-wrap: wrap;
+  }
+
+  .profile-row input[type="range"] {
     width: 100%;
-    padding: 0.6rem;
-    border: none;
-    background: transparent;
-    outline: none;
-    font-size: 0.9rem;
-    color: #1a1a1a;
-    font-family: 'Montserrat', sans-serif;
+    margin: 0.5rem 0;
   }
-  
-  .login-input::placeholder {
-    color: #6b5d4f;
+}
+
+@media (max-width: 480px) {
+  .profile-container {
+    padding-left: 1.5rem;
   }
-  
-  /* Make input row look clean */
-  .detail-item input {
-    flex: 1;
+
+  .profile-save-btn {
+    width: 100%;
   }
-  
-  select {
-    margin-left: auto;
-    padding: 0.3rem 0.5rem;
-    border-radius: 6px;
-    border: 1px solid rgba(212,175,55,0.4);
-    background: #f5f1e8;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.8rem;
+}
+
+
+/* Right aligned kebab wrapper */
+.kebab-wrapper {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+/* Kebab button */
+#kebabBtn {
+  background: none;
+  border: none;
+  color: #d4af37;
+  font-size: 1.6rem;
+  cursor: pointer;
+}
+
+/* Dropdown filter menu (RESTORED) */
+#filterMenu {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 2.2rem;
+  background: #f5f1e8;
+  border-radius: 10px;
+  border: 1px solid rgba(0,0,0,0.1);
+  min-width: 220px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+  z-index: 1000;
+}
+
+#filterMenu .detail-item {
+  padding: 0.9rem 1.2rem;
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: #1a1a1a;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+#filterMenu .detail-item:hover {
+  background: rgba(0,0,0,0.05);
+}
+
+/* ================= PROFILE PAGE (ORIGINAL LOOK) ================= */
+
+body.profile-page .restaurants-grid {
+  max-width: 700px;
+  margin: 0 auto;
+  padding-left: 3rem;
+  position: relative;
+}
+
+body.profile-page .restaurants-grid::before {
+  content: "";
+  position: absolute;
+  left: 1rem;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, transparent, #d4af37, transparent);
+}
+
+body.profile-page .restaurant-card {
+  background: linear-gradient(135deg, #f5f1e8, #e8dcc8);
+  border-radius: 16px;
+  padding: 1.5rem;
+  border: 1px solid rgba(212,175,55,0.3);
+  box-shadow: 0 6px 24px rgba(0,0,0,0.4);
+  color: #1a1a1a;
+}
+
+/* Headings */
+body.profile-page h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem;
+  margin-bottom: 0.5rem;
+}
+
+body.profile-page h3 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-family: 'Cormorant Garamond', serif;
+  color: #6b5d4f;
+  font-size: 1.3rem;
+  border-top: 1px solid rgba(212,175,55,0.3);
+  padding-top: 1rem;
+}
+
+/* Rows */
+body.profile-page .detail-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.9rem;
+  margin-bottom: 0.6rem;
+}
+
+/* Inputs */
+body.profile-page .login-input {
+  flex: 1;
+  padding: 0.6rem;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 0.9rem;
+  color: #1a1a1a;
+  font-family: 'Montserrat', sans-serif;
+  border-bottom: 1px solid rgba(212,175,55,0.4);
+}
+
+body.profile-page .login-input::placeholder {
+  color: #6b5d4f;
+}
+
+/* Checkboxes */
+body.profile-page input[type="checkbox"] {
+  accent-color: #d4af37;
+  transform: scale(1.1);
+}
+
+/* Sliders */
+body.profile-page input[type="range"] {
+  flex: 1;
+  margin: 0 0.5rem;
+  accent-color: #d4af37;
+}
+
+/* Save button */
+body.profile-page .chip {
+  display: block;
+  margin: 2rem auto 0;
+  padding: 0.7rem 2rem;
+  border-radius: 30px;
+  background: linear-gradient(135deg, #d4af37, #b8860b);
+  color: #1a1a1a;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+}
+
+body.profile-page .chip:hover {
+  opacity: 0.9;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  body.profile-page .restaurants-grid {
+    padding-left: 2rem;
   }
-  
+
+  body.profile-page .restaurant-card {
+    padding: 1.2rem;
+  }
+
+  body.profile-page .detail-item {
+    flex-wrap: wrap;
+  }
+
+  body.profile-page input[type="range"] {
+    width: 100%;
+    margin: 0.5rem 0;
+  }
+}
+
+@media (max-width: 480px) {
+  body.profile-page .restaurants-grid {
+    padding-left: 1.5rem;
+  }
+
+  body.profile-page .chip {
+    width: 100%;
+  }
+}
+
+/* ================= STAFF LOGIN PAGE ================= */
+
+.staff-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding-left: 3rem;
+  position: relative;
+}
+
+.staff-container::before {
+  content: "";
+  position: absolute;
+  left: 1rem;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, transparent, #d4af37, transparent);
+}
+
+.staff-card {
+  background: linear-gradient(135deg, #f5f1e8, #e8dcc8);
+  border-radius: 16px;
+  padding: 1.5rem;
+  border: 1px solid rgba(212,175,55,0.3);
+  box-shadow: 0 6px 24px rgba(0,0,0,0.4);
+  color: #1a1a1a;
+  text-align: center;
+}
+
+.staff-card h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.staff-card p {
+  font-size: 0.9rem;
+  color: #6b5d4f;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid rgba(212,175,55,0.3);
+  padding-bottom: 0.5rem;
+}
+
+/* input rows */
+.staff-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+}
+
+.staff-input {
+  flex: 1;
+  padding: 0.6rem;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 0.9rem;
+  color: #1a1a1a;
+  font-family: 'Montserrat', sans-serif;
+  border-bottom: 1px solid rgba(212,175,55,0.4);
+}
+
+.staff-input::placeholder {
+  color: #6b5d4f;
+}
+
+/* login button */
+.staff-login-btn {
+  margin-top: 1.5rem;
+  padding: 0.7rem 2.2rem;
+  border-radius: 30px;
+  background: linear-gradient(135deg, #d4af37, #b8860b);
+  color: #1a1a1a;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+}
+
+.staff-login-btn:hover {
+  opacity: 0.9;
+}
+
+/* back link */
+.staff-back-btn {
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  background: rgba(26,26,26,0.7);
+  border: 1px solid rgba(212,175,55,0.4);
+  color: #d4af37;
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  text-decoration: none;
+}
+
+.staff-back-btn:hover {
+  background: rgba(212,175,55,0.15);
+}
+
+/* responsive */
+@media (max-width: 768px) {
+  .staff-container {
+    padding-left: 2rem;
+  }
+
+  .staff-card {
+    padding: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .staff-container {
+    padding-left: 1.5rem;
+  }
+
+  .staff-login-btn {
+    width: 100%;
+  }
+}
+
+/* ================= USER LOGIN PAGE ================= */
+
+.user-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding-left: 3rem;
+  position: relative;
+}
+
+.user-container::before {
+  content: "";
+  position: absolute;
+  left: 1rem;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, transparent, #d4af37, transparent);
+}
+
+.user-card {
+  background: linear-gradient(135deg, #f5f1e8, #e8dcc8);
+  border-radius: 16px;
+  padding: 1.5rem;
+  border: 1px solid rgba(212,175,55,0.3);
+  box-shadow: 0 6px 24px rgba(0,0,0,0.4);
+  color: #1a1a1a;
+  text-align: center;
+}
+
+.user-card h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.user-card p {
+  font-size: 0.9rem;
+  color: #6b5d4f;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid rgba(212,175,55,0.3);
+  padding-bottom: 0.5rem;
+}
+
+/* input rows */
+.user-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+}
+
+.user-input {
+  flex: 1;
+  padding: 0.6rem;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 0.9rem;
+  color: #1a1a1a;
+  font-family: 'Montserrat', sans-serif;
+  border-bottom: 1px solid rgba(212,175,55,0.4);
+}
+
+.user-input::placeholder {
+  color: #6b5d4f;
+}
+
+/* login button */
+.user-login-btn {
+  margin-top: 1.5rem;
+  padding: 0.7rem 2.2rem;
+  border-radius: 30px;
+  background: linear-gradient(135deg, #d4af37, #b8860b);
+  color: #1a1a1a;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+}
+
+.user-login-btn:hover {
+  opacity: 0.9;
+}
+
+/* links */
+.user-links {
+  margin-top: 1rem;
+  font-size: 0.85rem;
+}
+
+.user-links a {
+  color: #d4af37;
+  text-decoration: none;
+}
+
+.user-links a:hover {
+  text-decoration: underline;
+}
+
+/* responsive */
+@media (max-width: 768px) {
+  .user-container {
+    padding-left: 2rem;
+  }
+
+  .user-card {
+    padding: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .user-container {
+    padding-left: 1.5rem;
+  }
+
+  .user-login-btn {
+    width: 100%;
+  }
+}
+
+/* ================= AUTH PAGES FIX (LOGIN / REGISTER / STAFF) ================= */
+
+/* Center cards */
+body.login-page .restaurants-grid,
+body.staff-page .restaurants-grid,
+body.register-page .restaurants-grid {
+  display: flex;
+  justify-content: center;
+}
+/* Make input rows align nicely */
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-size: 0.95rem;
+}
+
+/* FIX INPUT SIZE */
+.login-input {
+  flex: 1;
+  padding: 0.6rem 0.4rem;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 0.95rem;
+  color: #1a1a1a;
+  font-family: 'Montserrat', sans-serif;
+  border-bottom: 1px solid rgba(212,175,55,0.4);
+}
+
+.login-input::placeholder {
+  color: #6b5d4f;
+}
+
+/* Fix select dropdowns in staff dashboard */
+select {
+  padding: 0.35rem 0.5rem;
+  border-radius: 6px;
+  border: 1px solid rgba(212,175,55,0.4);
+  background: #fff;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Fix auth links */
+.card-description a {
+  color: #d4af37;
+  text-decoration: none;
+}
+
+.card-description a:hover {
+  text-decoration: underline;
+}
+
+/* Buttons spacing */
+.chip.active {
+  padding: 0.6rem 2rem;
+}
+
+/* Responsive auth pages */
+@media (max-width: 600px) {
+  .restaurant-card {
+    width: 100%;
+  }
+
+  .detail-item {
+    flex-wrap: wrap;
+  }
+
+  .login-input {
+    width: 100%;
+  }
+}
+
+
+
+

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SmartWait | Saved Restaurants</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app-container">
+
+  <button class="back-btn" onclick="window.location.href='home.html'">← Back to Restaurants</button>
+
+  <header class="header">
+    <h1 class="app-title">SmartWait</h1>
+    <p class="tagline">YOUR SAVED RESTAURANTS</p>
+  </header>
+
+  <main class="restaurants-grid" id="savedGrid"></main>
+
+</div>
+
+<script>
+/* Same restaurant dataset as home.html */
+const restaurants = [
+  { name:"Dishoom Covent Garden", cuisine:"Indian", category:"asian", wait:20, distance:0.4, crowd:3, rating:4.6, menuLink:"https://www.dishoom.com/menu/" },
+  { name:"La Bella Italia", cuisine:"Italian", category:"italian", wait:15, distance:0.3, crowd:2, rating:4.5, menuLink:"https://www.bellaitalia.co.uk/menu" },
+  { name:"Franco Manca Soho", cuisine:"Italian", category:"italian", wait:18, distance:0.5, crowd:3, rating:4.3, menuLink:"https://www.francomanca.co.uk/menu/" },
+  { name:"Five Guys Leicester Sq", cuisine:"American", category:"american", wait:10, distance:0.2, crowd:1, rating:4.2, menuLink:"https://restaurants.fiveguys.co.uk/menu" },
+  { name:"Shake Shack London", cuisine:"American", category:"american", wait:25, distance:0.6, crowd:3, rating:4.4, menuLink:"https://shakeshack.com/menu" },
+  { name:"Sushi Samba", cuisine:"Japanese", category:"asian", wait:30, distance:0.7, crowd:4, rating:4.7, menuLink:"https://sushisamba.com/menus/" },
+  { name:"Wagamama Oxford Circus", cuisine:"Asian", category:"asian", wait:12, distance:0.4, crowd:2, rating:4.3, menuLink:"https://www.wagamama.com/menu" },
+  { name:"Pizza Pilgrims", cuisine:"Italian", category:"italian", wait:14, distance:0.3, crowd:2, rating:4.6, menuLink:"https://www.pizzapilgrims.co.uk/menu/" },
+  { name:"Nando’s Soho", cuisine:"Portuguese", category:"american", wait:18, distance:0.6, crowd:3, rating:4.3, menuLink:"https://www.nandos.co.uk/food/menu" },
+  { name:"Honest Burgers", cuisine:"American", category:"american", wait:12, distance:0.4, crowd:2, rating:4.5, menuLink:"https://www.honestburgers.co.uk/menu/" },
+  { name:"Busaba Bangkok", cuisine:"Thai", category:"asian", wait:25, distance:0.7, crowd:4, rating:4.4, menuLink:"https://busaba.com/menu/" },
+  { name:"Wahaca Soho", cuisine:"Mexican", category:"mexican", wait:20, distance:0.5, crowd:3, rating:4.5, menuLink:"https://www.wahaca.co.uk/menu/" },
+  { name:"Alley Cats Pizza", cuisine:"Italian", category:"italian", wait:20, distance:0.5, crowd:3, rating:4.5, menuLink:"https://alleycatspizza.co.uk/menu/" }
+];
+
+/* Load saved names */
+const savedNames = JSON.parse(localStorage.getItem("savedRestaurants")) || [];
+
+/* Filter restaurant objects */
+const savedRestaurants = restaurants.filter(r => savedNames.includes(r.name));
+
+const grid = document.getElementById("savedGrid");
+
+if(savedRestaurants.length === 0){
+  grid.innerHTML = `<p style="text-align:center;color:#c9b896;">No saved restaurants yet.</p>`;
+} else {
+  grid.innerHTML = savedRestaurants.map(r=>`
+    <div class="restaurant-card" onclick="openDetails(${JSON.stringify(r)})">
+      <h2 class="restaurant-name">${r.name}</h2>
+
+      <div class="wait-badge">
+        <span class="wait-time">${r.wait}</span>
+        <span class="wait-label">MIN WAIT</span>
+      </div>
+
+      <div class="card-details">
+        <div class="detail-item">📍 ${r.distance} miles away</div>
+        <div class="detail-item">⭐ Rating: ${r.rating}</div>
+      </div>
+    </div>
+  `).join("");
+}
+
+/* Go to details page */
+function openDetails(r){
+  const url = `restaurant-details.html?name=${encodeURIComponent(r.name)}
+  &cuisine=${encodeURIComponent(r.cuisine)}
+  &wait=${r.wait}
+  &distance=${r.distance}
+  &rating=${r.rating}
+  &crowd=${r.crowd}
+  &score=0
+  &menuLink=${encodeURIComponent(r.menuLink)}`;
+  window.location.href = url;
+}
+</script>
+
+</body>
+</html>

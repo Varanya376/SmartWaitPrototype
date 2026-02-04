@@ -12,51 +12,40 @@
 
 <div class="app-container">
 
-  <!-- Back Button -->
-  <button class="back-btn" onclick="window.location.href='index.html'">← Back to User Login</button>
+  <a href="index.html" class="staff-back-btn">← Back to User Login</a>
 
   <header class="header">
     <h1 class="app-title">SmartWait</h1>
     <p class="tagline">RESTAURANT STAFF LOGIN</p>
   </header>
 
-  <div class="restaurants-grid">
+  <div class="staff-container">
+    <div class="staff-card">
 
-    <div class="restaurant-card">
-
-      <h2 class="restaurant-name" style="text-align:center;">Staff Access Portal</h2>
-      <p class="card-description" style="text-align:center;">
-        Login to manage table availability and restaurant status.
-      </p>
+      <h2>Staff Access Portal</h2>
+      <p>Login to manage table availability and restaurant status.</p>
 
       <form id="staffLoginForm">
 
-        <div class="card-details">
-
-          <div class="detail-item">
-            🏷
-            <input type="text" id="staffId" placeholder="Staff ID" required class="login-input">
-          </div>
-
-          <div class="detail-item">
-            🔒
-            <input type="password" id="staffPassword" placeholder="Password" required class="login-input">
-          </div>
-
+        <div class="staff-row">
+          🏷
+          <input type="text" id="staffId" placeholder="Staff ID" required class="staff-input">
         </div>
 
-        <div style="margin-top:2rem; text-align:center;">
-          <button type="submit" class="chip active">Login</button>
+        <div class="staff-row">
+          🔒
+          <input type="password" id="staffPassword" placeholder="Password" required class="staff-input">
         </div>
+
+        <button type="submit" class="staff-login-btn">Login</button>
 
       </form>
 
-      <p class="card-description" style="text-align:center; margin-top:1.5rem;">
+      <p style="margin-top:1.5rem;">
         Authorized restaurant staff only.
       </p>
 
     </div>
-
   </div>
 
 </div>

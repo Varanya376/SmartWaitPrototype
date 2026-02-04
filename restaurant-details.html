@@ -12,7 +12,6 @@
 
 <div class="app-container">
 
-  <!-- Back Button -->
   <button class="back-btn" onclick="window.location.href='home.html'">← Back to Restaurants</button>
 
   <header class="header">
@@ -21,18 +20,19 @@
   </header>
 
   <div class="restaurants-grid">
-
     <div class="restaurant-card">
 
-      <div class="card-header">
-        <h2 class="restaurant-name" id="restaurantName"></h2>
-        <p class="cuisine-type" id="restaurantCuisine"></p>
+      <!-- SAVE BUTTON -->
+      <div style="text-align:right;">
+        <button id="saveBtn" style="background:none;border:none;font-size:1.5rem;cursor:pointer;">🤍</button>
       </div>
+
+      <h2 class="restaurant-name" id="restaurantName"></h2>
+      <p class="cuisine-type" id="restaurantCuisine"></p>
 
       <p class="card-description" id="restaurantDescription"></p>
 
-      <!-- Wait Badge -->
-      <div class="wait-badge" id="waitBadge">
+      <div class="wait-badge">
         <span class="wait-time" id="waitTime"></span>
         <span class="wait-label">MIN WAIT</span>
       </div>
@@ -42,8 +42,9 @@
         <div class="detail-item">⭐ Rating: <span id="rating"></span></div>
         <div class="detail-item">🤖 Recommendation Score: <span id="score"></span>%</div>
 
+        <!-- CROWD LEVEL -->
         <div class="detail-item">
-          👥 Crowd Level
+          👥 Crowd Level:
           <div class="crowd-indicator" id="crowdIndicator">
             <div class="crowd-bar"></div>
             <div class="crowd-bar"></div>
@@ -54,22 +55,18 @@
         </div>
       </div>
 
-      <!-- Map Placeholder -->
-      <div class="map-placeholder">
-        📍 Map view will be displayed here
+      <!-- MAP -->
+      <div class="map-container" id="mapContainer"></div>
+
+      <!-- BUTTON ROW -->
+      <div class="button-row">
+        <a id="menuBtn" class="menu-btn" target="_blank">View Full Menu</a>
+        <button class="menu-btn" id="alertBtn">Enable Table Alert</button>
       </div>
 
-      <!-- Menu -->
-      <h3 class="menu-title">Sample Menu</h3>
-      <div class="card-details" id="menuList"></div>
-
-      <!-- Alert Button -->
-      <div style="margin-top:2rem; text-align:center;">
-        <button class="chip active" id="alertBtn">Turn on Table Availability Alert</button>
-      </div>
+      <p id="alertMsg" style="margin-top:1rem; display:none; color:#6b5d4f; text-align:center;"></p>
 
     </div>
-
   </div>
 
 </div>
@@ -85,47 +82,70 @@ const restaurant = {
   rating: params.get("rating"),
   crowd: parseInt(params.get("crowd")),
   score: params.get("score"),
-  description: "A popular London dining destination known for its authentic flavours, vibrant ambience, and premium dining experience.",
-  menu: [
-    "Signature Chef Special",
-    "Classic House Platter",
-    "Seasonal Gourmet Salad",
-    "Traditional Dessert Selection"
-  ]
+  menuLink: params.get("menuLink"),
+  description: "A popular London dining destination known for its authentic flavours and vibrant atmosphere."
 };
 
-function getWaitClass(wait){
-  if(wait <= 15) return "short";
-  if(wait <= 30) return "medium";
-  return "long";
-}
-
+/* Populate */
 document.getElementById("restaurantName").textContent = restaurant.name;
-document.getElementById("restaurantCuisine").textContent = restaurant.cuisine.toUpperCase();
+document.getElementById("restaurantCuisine").textContent = restaurant.cuisine;
 document.getElementById("waitTime").textContent = restaurant.wait;
 document.getElementById("distance").textContent = restaurant.distance;
 document.getElementById("rating").textContent = restaurant.rating;
 document.getElementById("score").textContent = restaurant.score;
 document.getElementById("restaurantDescription").textContent = restaurant.description;
+document.getElementById("menuBtn").href = restaurant.menuLink;
 
-const badge = document.getElementById("waitBadge");
-badge.className = "wait-badge " + getWaitClass(restaurant.wait);
-
-const bars = document.querySelectorAll("#crowdIndicator .crowd-bar");
-bars.forEach((b,i)=>{
+/* Crowd bars */
+const bars = document.querySelectorAll(".crowd-bar");
+bars.forEach((bar, i) => {
   if(i < restaurant.crowd){
-    b.classList.add("active");
+    bar.classList.add("active");
   }
 });
 
-const menuDiv = document.getElementById("menuList");
-menuDiv.innerHTML = restaurant.menu.map(item =>
-  `<div class="detail-item">🍽 ${item}</div>`
-).join("");
+/* Save restaurant */
+let savedRestaurants = JSON.parse(localStorage.getItem("savedRestaurants")) || [];
+const saveBtn = document.getElementById("saveBtn");
 
-document.getElementById("alertBtn").addEventListener("click", ()=>{
-  alert(`You will be notified when a table becomes available at ${restaurant.name}.`);
+function updateSaveIcon(){
+  saveBtn.textContent = savedRestaurants.includes(restaurant.name) ? "❤️" : "🤍";
+}
+updateSaveIcon();
+
+saveBtn.addEventListener("click", ()=>{
+  if(savedRestaurants.includes(restaurant.name)){
+    savedRestaurants = savedRestaurants.filter(r => r !== restaurant.name);
+  } else {
+    savedRestaurants.push(restaurant.name);
+  }
+  localStorage.setItem("savedRestaurants", JSON.stringify(savedRestaurants));
+  updateSaveIcon();
 });
+
+/* Alert button */
+const alertBtn = document.getElementById("alertBtn");
+const alertMsg = document.getElementById("alertMsg");
+
+alertBtn.addEventListener("click", ()=>{
+  alertMsg.style.display = "block";
+  alertMsg.textContent = `✔ You will be notified when a table becomes available at ${restaurant.name}.`;
+  alertBtn.disabled = true;
+});
+
+/* Google Map */
+const mapContainer = document.getElementById("mapContainer");
+const query = encodeURIComponent(restaurant.name + " London");
+
+mapContainer.innerHTML = `
+  <iframe
+    width="100%"
+    height="250"
+    style="border:0; border-radius:12px;"
+    loading="lazy"
+    src="https://www.google.com/maps?q=${query}&output=embed">
+  </iframe>
+`;
 </script>
 
 </body>

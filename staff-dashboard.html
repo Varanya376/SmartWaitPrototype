@@ -12,7 +12,6 @@
 
 <div class="app-container">
 
-  <!-- Back Button -->
   <button class="back-btn" onclick="window.location.href='staff-login.html'">← Logout</button>
 
   <header class="header">
@@ -20,72 +19,71 @@
     <p class="tagline">STAFF DASHBOARD</p>
   </header>
 
-  <div class="restaurants-grid">
+  <div class="staff-container">
+    <div class="staff-card">
 
-    <div class="restaurant-card">
-
-      <h2 class="restaurant-name" style="text-align:center;">Table Management Panel</h2>
-      <p class="card-description" style="text-align:center;">
+      <h2>Table Management Panel</h2>
+      <p>
         Update table availability to refresh AI wait-time predictions.
       </p>
 
-      <!-- Table List -->
       <div class="card-details" id="tableList"></div>
 
-      <!-- Predicted Wait -->
       <div style="margin-top:2rem; text-align:center;">
         <div class="wait-badge" id="predictedWait">
-          <span class="wait-time" id="waitTime">20</span>
-          <span class="wait-label">MIN WAIT</span>
+          <span id="waitTime">20</span> MIN WAIT
         </div>
-        <p class="card-description">Predicted wait time updates automatically.</p>
+        <p>Predicted wait time updates automatically.</p>
       </div>
 
     </div>
-
   </div>
 
 </div>
 
 <script>
-const tables = [
-  { id: 1, status: "Free" },
-  { id: 2, status: "Occupied" },
-  { id: 3, status: "Reserved" },
-  { id: 4, status: "Free" },
-  { id: 5, status: "Occupied" }
-];
-
-function renderTables(){
-  const container = document.getElementById("tableList");
-
-  container.innerHTML = tables.map((t,index)=>`
-    <div class="detail-item">
-      🪑 Table ${t.id}
-      <select onchange="updateStatus(${index}, this.value)">
-        <option ${t.status==="Free"?"selected":""}>Free</option>
-        <option ${t.status==="Occupied"?"selected":""}>Occupied</option>
-        <option ${t.status==="Reserved"?"selected":""}>Reserved</option>
-      </select>
-    </div>
-  `).join("");
-}
-
-function updateStatus(index,value){
-  tables[index].status = value;
+  const tables = [
+    { id: 1, status: "Free" },
+    { id: 2, status: "Occupied" },
+    { id: 3, status: "Reserved" },
+    { id: 4, status: "Free" },
+    { id: 5, status: "Occupied" }
+  ];
+  
+  function renderTables(){
+    const container = document.getElementById("tableList");
+  
+    container.innerHTML = tables.map((t,index)=>`
+      <div class="detail-item">
+        🪑 Table ${t.id}
+        <select onchange="updateStatus(${index}, this.value)">
+          <option ${t.status==="Free"?"selected":""}>Free</option>
+          <option ${t.status==="Occupied"?"selected":""}>Occupied</option>
+          <option ${t.status==="Reserved"?"selected":""}>Reserved</option>
+        </select>
+      </div>
+    `).join("");
+  }
+  
+  function updateStatus(index,value){
+    tables[index].status = value;
+    updatePrediction();
+  }
+  
+  function updatePrediction(){
+    const occupied = tables.filter(t=>t.status==="Occupied").length;
+    const wait = 5 + occupied * 5;
+  
+    document.getElementById("waitTime").textContent = wait;
+  
+    // 🔹 SAVE WAIT TIME GLOBALLY
+    localStorage.setItem("globalWaitTime", wait);
+  }
+  
+  renderTables();
   updatePrediction();
-}
-
-function updatePrediction(){
-  const occupied = tables.filter(t=>t.status==="Occupied").length;
-  const wait = 5 + occupied * 5;
-
-  document.getElementById("waitTime").textContent = wait;
-}
-
-renderTables();
-updatePrediction();
-</script>
+  </script>
+  
 
 </body>
 </html>

@@ -1,4 +1,3 @@
-<!-- redeploy-->
 <!DOCTYPE html> 
 <html lang="en">
 <head>
@@ -18,60 +17,35 @@
     <p class="tagline">USER LOGIN</p>
   </header>
 
-  <div class="restaurants-grid">
+  <div class="user-container">
+    <div class="user-card">
 
-    <div class="restaurant-card">
-
-      <h2 class="restaurant-name" style="text-align:center;">Welcome Back</h2>
-      <p class="card-description" style="text-align:center;">
-        Login to continue to SmartWait
-      </p>
+      <h2>Welcome Back</h2>
+      <p>Login to continue to SmartWait</p>
 
       <form id="loginForm">
 
-        <div class="card-details">
-
-          <div class="detail-item">
-            📧
-            <input type="email" id="email" placeholder="Email address" required class="login-input">
-          </div>
-
-          <div class="detail-item">
-            🔒
-            <input type="password" id="password" placeholder="Password" required class="login-input">
-          </div>
-
+        <div class="user-row">
+          📧
+          <input type="email" id="email" placeholder="Email address" required class="user-input">
         </div>
 
-        <div style="margin-top:2rem; text-align:center;">
-          <button type="submit" class="chip active">Login</button>
+        <div class="user-row">
+          🔒
+          <input type="password" id="password" placeholder="Password" required class="user-input">
         </div>
+
+        <button type="submit" class="user-login-btn">Login</button>
 
       </form>
 
-      <!-- Extra Options -->
-      <div style="text-align:center; margin-top:1.5rem;">
-
-        <p class="card-description">
-          <a href="register.html" style="color:#d4af37; text-decoration:none;">Register</a>
-        </p>
-
-        <p class="card-description" style="margin-top:0.5rem;">
-          <a href="forgot-password.html" style="color:#d4af37; text-decoration:none;">
-            Forgot Password?
-          </a>
-        </p>
-
-        <p class="card-description" style="text-align:center; margin-top:1rem;">
-            Restaurant staff?  
-            <a href="staff-login.html" style="color:#d4af37; text-decoration:none;">
-              Login here
-            </a>
-          </p>          
+      <div class="user-links">
+        <a href="register.html">Register</a><br>
+        <a href="forgot-password.html">Forgot Password?</a><br>
+        Restaurant staff? <a href="staff-login.html">Login here</a>
       </div>
 
     </div>
-
   </div>
 
 </div>
@@ -85,7 +59,7 @@ document.getElementById("loginForm").addEventListener("submit", function(e){
 
   if(email && password){
     alert("Login successful (demo)");
-    window.location.href = "home.html"; // restaurant list page
+    window.location.href = "home.html";
   } else {
     alert("Please enter valid credentials.");
   }
